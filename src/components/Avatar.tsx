@@ -1,6 +1,18 @@
+import golfImg from '../assets/golf.png'
+import roryImg from '../assets/rory.png'
+import majorImg from '../assets/major.png'
+import analyticalImg from '../assets/analytical.png'
+
 interface AvatarProps {
   username: string
   size?: 'sm' | 'md' | 'lg'
+}
+
+const USER_IMAGES: Record<string, string> = {
+  GolfFanatic_78: golfImg,
+  Roryloyalist: roryImg,
+  MajorMadness: majorImg,
+  Analytical_Golfer: analyticalImg,
 }
 
 const PALETTE = [
@@ -23,6 +35,18 @@ const SIZE_CLASSES = {
 }
 
 export default function Avatar({ username, size = 'md' }: AvatarProps) {
+  const img = USER_IMAGES[username]
+
+  if (img) {
+    return (
+      <img
+        src={img}
+        alt={username}
+        className={`${SIZE_CLASSES[size]} rounded-full object-cover shrink-0 select-none`}
+      />
+    )
+  }
+
   return (
     <div
       className={`${SIZE_CLASSES[size]} rounded-full flex items-center justify-center shrink-0 text-white font-bold select-none`}

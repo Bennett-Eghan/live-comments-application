@@ -5,7 +5,7 @@ import TopicList from './components/TopicList'
 import CommentThread from './components/CommentThread'
 import AuthGate from './components/AuthGate'
 
-const CURRENT_USER = 'Phillipa'
+const CURRENT_USER = 'Tactical'
 
 function initComments(): Record<string, Comment[]> {
   const map: Record<string, Comment[]> = {}
@@ -88,7 +88,7 @@ export default function App() {
         {/* Demo auth toggle */}
         <div className="fixed top-3 right-3 z-50 flex items-center gap-2">
           <span className="text-[11px] text-[#666] font-semibold">
-            {isAuthenticated ? 'Signed in as Phillipa' : 'Not signed in'}
+            {isAuthenticated ? 'Signed in as Tactical' : 'Not signed in'}
           </span>
           <button
             onClick={() => {

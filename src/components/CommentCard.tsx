@@ -18,17 +18,17 @@ function formatTime(date: Date): string {
 export default function CommentCard({ comment, onReact, isNew = false }: CommentCardProps) {
   return (
     <article
-      className={`py-4 border-b border-[#E8E3D8] ${isNew ? 'comment-enter' : ''}`}
+      className={`pt-4 ${isNew ? 'comment-enter' : ''}`}
       aria-label={`Comment by ${comment.username}`}
     >
       <div className="flex items-start gap-3">
         <Avatar username={comment.username} />
         <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-2 mb-1.5">
-            <span className="font-bold text-[15px] text-[#1A1A1A]">{comment.username}</span>
-            <span className="text-[13px] text-[#888] ml-auto shrink-0">{formatTime(comment.timestamp)}</span>
+          <div className="flex items-center gap-3 mb-1.5">
+            <span className="font-medium text-[15px] text-black">{comment.username}</span>
+            <span className="text-[13px] text-black shrink-0">{formatTime(comment.timestamp)}</span>
           </div>
-          <p className="text-[15px] text-[#2A2A2A] leading-relaxed mb-2.5">{comment.text}</p>
+          <p className="text-[15px] text-black leading-relaxed mb-2.5">{comment.text}</p>
           {comment.reactions.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {comment.reactions.map((reaction) => (
