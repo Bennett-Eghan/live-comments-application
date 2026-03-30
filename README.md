@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Loom walkthrough](https://www.loom.com/share/3fa140a9112f48debc690c596884bdf9)
+[Loom walkthrough](https://www.loom.com/share/41b39b4d06384e71ab9a331bb4f8b487)
 
 ---
 
@@ -46,4 +46,6 @@ npm run build
 
 ## What I'd improve given more time
 - A proper send button alongside the comment input for better mobile UX
-- Keyboard navigation polish and focus management between screens
+- A sign-out option so users can switch accounts or reset auth state without refreshing
+- Pinned comments — a highlighted comment fixed at the top of each thread for context
+- Live viewer count — showing how many people are currently watching the thread

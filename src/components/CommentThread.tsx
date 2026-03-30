@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Topic, Comment } from '../types'
 import CommentCard from './CommentCard'
 
@@ -23,13 +23,16 @@ export default function CommentThread({
   const listEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
+  useEffect(() => {
+    listEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [comments.length])
+
   function handleSubmit() {
     const text = inputValue.trim()
     if (!text) return
     onAddComment(topic.id, text, currentUser)
     setInputValue('')
     inputRef.current?.focus()
-    listEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
