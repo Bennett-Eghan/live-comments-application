@@ -16,6 +16,37 @@ const TABS: { key: Tab; label: string }[] = [
   { key: 'stats', label: 'Stats' },
 ]
 
+function BracketSvg({ isBottomLeft }: { isBottomLeft: boolean }) {
+  return (
+    <svg
+      width="8"
+      height="8"
+      viewBox="10 10 80 80"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        ...(isBottomLeft
+          ? { bottom: 2, left: -4 }
+          : { top: 2, right: -2, transform: 'rotate(180deg)' }
+        ),
+      }}
+    >
+      <polygon points="10 10, 10 90, 90 90, 70 70, 30 70, 30 30" fill="white" />
+    </svg>
+  )
+}
+
+function ZoneBadge() {
+  return (
+    <span style={{ position: 'relative', display: 'inline-block', padding: '0px 1px' }}>
+      <BracketSvg isBottomLeft={false} />
+      <BracketSvg isBottomLeft={true} />
+      <span style={{ position: 'relative', zIndex: 1,}}>ZONE</span>
+    </span>
+  )
+}
+
 function CornerBracket({ position }: { position: 'top-right' | 'bottom-left' }) {
   const isBottomLeft = position === 'bottom-left'
   const gradId = isBottomLeft ? 'grad-bottom-left' : 'grad-top-right'
@@ -24,13 +55,14 @@ function CornerBracket({ position }: { position: 'top-right' | 'bottom-left' }) 
     <svg
       width="60"
       height="60"
-      viewBox="0 0 60 60"
+      viewBox="10 10 80 80"
+      preserveAspectRatio="none"
       aria-hidden="true"
       style={{
         position: 'absolute',
         ...(isBottomLeft
-          ? { bottom: 12, left: '50%', zIndex: 0 }
-          : { top: 20, right: 15, zIndex: 2, transform: 'rotate(180deg)' }
+          ? { bottom: 12, left: '41%', zIndex: 0 }
+          : { top: 15, right: 10, zIndex: 2, transform: 'rotate(180deg)' }
         ),
       }}
     >
@@ -38,14 +70,14 @@ function CornerBracket({ position }: { position: 'top-right' | 'bottom-left' }) 
         <linearGradient
           id={gradId}
           gradientUnits="userSpaceOnUse"
-          x1="0" y1="0" x2="60" y2="60"
+          x1="10" y1="10" x2="90" y2="90"
         >
-          <stop offset="0%" stopColor={isBottomLeft ? '#00E650' : '#402106'} />
-          <stop offset="100%" stopColor={isBottomLeft ? '#402106' : '#00E650'} />
+          <stop offset="0%" stopColor={isBottomLeft ? '#00E650' : '#1e4813'} />
+          <stop offset="100%" stopColor={isBottomLeft ? '#1e4813' : '#00E650'} />
         </linearGradient>
       </defs>
-      <path
-        d="M0 0 L18 0 L18 42 L60 42 L60 60 L0 60 Z"
+      <polygon
+        points="10 10, 10 90, 90 90, 70 70, 30 70, 30 30"
         fill={`url(#${gradId})`}
       />
     </svg>
@@ -71,11 +103,34 @@ export default function TopicList({ topics, activeTab, onTabChange, onTopicClick
         style={{
           borderRadius: '20px 0px 20px 0px',
           overflow: 'hidden',
-          height: 202,
-          background: 'linear-gradient(to right, #F5A623 0%, #E8850A 100%)',
+          height: 184,
+          background: 'radial-gradient(ellipse at center, #EFB800 0%, #E07D00 100%)',
           position: 'relative',
         }}
       >
+        {/* Glow oval — left-center highlight */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          width: '60%',
+          zIndex: 0,
+          background: 'radial-gradient(ellipse 60% 50% at 30% 50%, rgba(255,220,100,0.35) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Concave bottom oval */}
+        <div style={{
+          position: 'absolute',
+          bottom: -17,
+          left: '-20%',
+          width: '140%',
+          height: 120,
+          background: 'radial-gradient(ellipse at center, #EFB800 0%, #E07D00 100%)',
+          borderRadius: '50%',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }} />
+
         {/* Bottom-left bracket — z-index 0, behind player */}
         <CornerBracket position="bottom-left" />
 
@@ -87,12 +142,11 @@ export default function TopicList({ topics, activeTab, onTabChange, onTopicClick
           style={{
             position: 'absolute',
             right: -30,
-            top: 40,
-            height: '90%',
-            width: '56%',
+            top: 25,
+            height: '95%',
+            width: '70%',
             objectFit: 'cover',
             objectPosition: 'top center',
-         
             pointerEvents: 'none',
             zIndex: 1,
           }}
@@ -111,18 +165,18 @@ export default function TopicList({ topics, activeTab, onTabChange, onTopicClick
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: '16px 0 16px 20px',
-            zIndex: 1,
+            padding: '26px 0 16px 20px',
+            zIndex: 10,
           }}
         >
           <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 11, fontWeight: 600, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 2 }}>
             GOLF
           </p>
-          <h1 style={{ color: '#fff', fontSize: 42, fontWeight: 900, lineHeight: 1, marginBottom: 12, textShadow: '0 1px 3px rgba(0,0,0,0.15)' }}>
+          <h1 style={{ color: '#fff', fontSize: 42, fontWeight: 900, lineHeight: 1, marginBottom: 12 }}>
             Open<br />Talk
           </h1>
-          <p style={{ color: '#fff', fontSize: 13, fontWeight: 800, letterSpacing: 2 }}>
-            FAN ZONE
+          <p style={{ color: '#fff', fontSize: 13, fontWeight: 900, letterSpacing: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
+            FAN <ZoneBadge />
           </p>
         </div>
       </div>
@@ -173,7 +227,8 @@ export default function TopicList({ topics, activeTab, onTabChange, onTopicClick
               <li key={topic.id}>
                 <button
                   onClick={() => onTopicClick(topic.id)}
-                  className="w-full text-left px-4 py-4 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors duration-200 border-0 bg-[#F5EAD3] hover:bg-[#1B5E35] group"
+                  className="w-full text-left px-4 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors duration-200 border-0 bg-[#F5EAD3] hover:bg-[#1B5E35] group"
+                  style={{ height: 86 }}
                   aria-label={`${topic.title}: ${topic.subtitle}`}
                 >
                   <div>

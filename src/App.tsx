@@ -84,25 +84,7 @@ export default function App() {
 
   return (
     <div className="min-h-dvh bg-[#FFFAED] flex justify-center">
-      <div className="w-full max-w-[480px] flex flex-col h-dvh relative bg-[#FFFAED]">
-        {/* Demo auth toggle */}
-        <div className="fixed top-3 right-3 z-50 flex items-center gap-2">
-          <span className="text-[11px] text-[#666] font-semibold">
-            {isAuthenticated ? 'Signed in as Tactical' : 'Not signed in'}
-          </span>
-          <button
-            onClick={() => {
-              const next = !isAuthenticated
-              setIsAuthenticated(next)
-              if (!next && screen === 'comment-thread') setScreen('topic-list')
-            }}
-            className={`px-3 py-1 rounded-full border-[1.5px] border-[#1B5E35] text-xs font-bold cursor-pointer transition-colors
-              ${isAuthenticated ? 'bg-[#1B5E35] text-white' : 'bg-transparent text-[#1B5E35]'}`}
-          >
-            {isAuthenticated ? 'Sign out' : 'Sign in'}
-          </button>
-        </div>
-
+      <div className="w-full max-w-[360px] flex flex-col h-dvh relative bg-[#FFFAED]">
         {screen === 'topic-list' && (
           <TopicList
             topics={TOPICS}
